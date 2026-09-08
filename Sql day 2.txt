@@ -1,0 +1,118 @@
+Enter password: ****
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 11
+Server version: 8.0.46 MySQL Community Server - GPL
+
+Copyright (c) 2000, 2026, Oracle and/or its affiliates.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+mysql> show databases;
++--------------------+
+| Database           |
++--------------------+
+| batch436           |
+| information_schema |
+| mysql              |
+| performance_schema |
+| sys                |
++--------------------+
+5 rows in set (0.02 sec)
+
+mysql> use batch436;
+Database changed
+mysql> select * from employee;
++-------+---------+--------+
+| empId | name    | salary |
++-------+---------+--------+
+|     1 | Shubham |  67000 |
+|     3 | Sanket  |  34000 |
+|     4 | Nilesh  |  38000 |
+|     5 | Nagesh  |  28000 |
++-------+---------+--------+
+4 rows in set (0.02 sec)
+
+mysql> delete employee;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '' at line 1
+mysql> delete * from Employee;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '* from Employee' at line 1
+mysql> delete table employee;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'table employee' at line 1
+mysql> alter table employee add City varchar(50), add State varchar(50), add Phone varchar(50) not null, add Email varchar(50) not null, add DOB varchar(50), add Gender varchar(50) Not null, add Department varchar(50) not null, add Desigination varchar(50) not null, add joining_date varchar(50), add employee_Status varchar(50) not null;
+Query OK, 0 rows affected (0.10 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> select * from Employee;
++-------+---------+--------+------+-------+-------+-------+------+--------+------------+--------------+--------------+-----------------+
+| empId | name    | salary | City | State | Phone | Email | DOB  | Gender | Department | Desigination | joining_date | employee_Status |
++-------+---------+--------+------+-------+-------+-------+------+--------+------------+--------------+--------------+-----------------+
+|     1 | Shubham |  67000 | NULL | NULL  |       |       | NULL |        |            |              | NULL         |                 |
+|     3 | Sanket  |  34000 | NULL | NULL  |       |       | NULL |        |            |              | NULL         |                 |
+|     4 | Nilesh  |  38000 | NULL | NULL  |       |       | NULL |        |            |              | NULL         |                 |
+|     5 | Nagesh  |  28000 | NULL | NULL  |       |       | NULL |        |            |              | NULL         |                 |
++-------+---------+--------+------+-------+-------+-------+------+--------+------------+--------------+--------------+-----------------+
+4 rows in set (0.01 sec)
+
+mysql> alert employee add shift varchar(50) not null;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'alert employee add shift varchar(50) not null' at line 1
+mysql> alert table employee add shift varchar(50) not null;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'alert table employee add shift varchar(50) not null' at line 1
+mysql> alter table employee add shift varchar(50) not null, add Pan_No varchar(50) not null, add Adhar_No varchar(50) not null;
+Query OK, 0 rows affected (0.04 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> desc employee;
++-----------------+-------------+------+-----+---------+-------+
+| Field           | Type        | Null | Key | Default | Extra |
++-----------------+-------------+------+-----+---------+-------+
+| empId           | int         | YES  |     | NULL    |       |
+| name            | varchar(50) | YES  |     | NULL    |       |
+| salary          | int         | YES  |     | NULL    |       |
+| City            | varchar(50) | YES  |     | NULL    |       |
+| State           | varchar(50) | YES  |     | NULL    |       |
+| Phone           | varchar(50) | NO   |     | NULL    |       |
+| Email           | varchar(50) | NO   |     | NULL    |       |
+| DOB             | varchar(50) | YES  |     | NULL    |       |
+| Gender          | varchar(50) | NO   |     | NULL    |       |
+| Department      | varchar(50) | NO   |     | NULL    |       |
+| Desigination    | varchar(50) | NO   |     | NULL    |       |
+| joining_date    | varchar(50) | YES  |     | NULL    |       |
+| employee_Status | varchar(50) | NO   |     | NULL    |       |
+| shift           | varchar(50) | NO   |     | NULL    |       |
+| Pan_No          | varchar(50) | NO   |     | NULL    |       |
+| Adhar_No        | varchar(50) | NO   |     | NULL    |       |
++-----------------+-------------+------+-----+---------+-------+
+16 rows in set (0.02 sec)
+
+mysql> alter table employee add constraint PRIMARY KEY (empId);
+Query OK, 0 rows affected (0.17 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> desc employee;
++-----------------+-------------+------+-----+---------+-------+
+| Field           | Type        | Null | Key | Default | Extra |
++-----------------+-------------+------+-----+---------+-------+
+| empId           | int         | NO   | PRI | NULL    |       |
+| name            | varchar(50) | YES  |     | NULL    |       |
+| salary          | int         | YES  |     | NULL    |       |
+| City            | varchar(50) | YES  |     | NULL    |       |
+| State           | varchar(50) | YES  |     | NULL    |       |
+| Phone           | varchar(50) | NO   |     | NULL    |       |
+| Email           | varchar(50) | NO   |     | NULL    |       |
+| DOB             | varchar(50) | YES  |     | NULL    |       |
+| Gender          | varchar(50) | NO   |     | NULL    |       |
+| Department      | varchar(50) | NO   |     | NULL    |       |
+| Desigination    | varchar(50) | NO   |     | NULL    |       |
+| joining_date    | varchar(50) | YES  |     | NULL    |       |
+| employee_Status | varchar(50) | NO   |     | NULL    |       |
+| shift           | varchar(50) | NO   |     | NULL    |       |
+| Pan_No          | varchar(50) | NO   |     | NULL    |       |
+| Adhar_No        | varchar(50) | NO   |     | NULL    |       |
++-----------------+-------------+------+-----+---------+-------+
+16 rows in set (0.00 sec)
+
+mysql>
