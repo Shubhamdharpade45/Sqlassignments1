@@ -1,0 +1,396 @@
+Day 8 Assignment - SQL
+
+
+
+Practise Questions : 
+
+Find students who scored more than Rahul.
+Find students who scored less than Priya.
+Find students having the same marks as Rohit.
+Find students older than Amit.
+Find students younger than Sneha.
+Find students who scored above the average marks.
+Find students who scored below the average marks.
+Find the student with the highest marks.
+Find the student with the lowest marks.
+Find students whose marks are equal to the maximum marks.
+Find students whose marks are greater than the maximum marks of students from Mumbai.
+Find students whose marks are less than the minimum marks of students from Pune.
+Find students who are enrolled in the same course as Rahul.
+Find students whose age is present among Mumbai students.
+Find students whose marks are present among Pune students.
+
+
+
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 10
+Server version: 8.0.46 MySQL Community Server - GPL
+
+Copyright (c) 2000, 2026, Oracle and/or its affiliates.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+mysql> show databases;
++--------------------+
+| Database           |
++--------------------+
+| batch              |
+| batch436           |
+| information_schema |
+| mysql              |
+| performance_schema |
+| sys                |
++--------------------+
+6 rows in set (0.02 sec)
+
+mysql> use batch346;
+ERROR 1049 (42000): Unknown database 'batch346'
+mysql> use batch 436;
+Database changed
+mysql> show tables;
++-----------------+
+| Tables_in_batch |
++-----------------+
+| demo            |
+| student         |
++-----------------+
+2 rows in set (0.02 sec)
+
+mysql> select * from student;
++--------+---------+---------+-------+
+| studId | Name    | City    | Marks |
++--------+---------+---------+-------+
+|      1 | shubham | parbhni |    78 |
+|      2 | Vishal  | pune    |    68 |
+|      3 | rahul   | Nanded  |    82 |
+|      4 | himesh  | Latur   |    72 |
+|      5 | govind  | Beed    |    79 |
+|      6 | Suraj   | Beed    |    88 |
+|      7 | Balaji  | Jalna   |    88 |
++--------+---------+---------+-------+
+7 rows in set (0.02 sec)
+
+mysql> truncket student;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'truncket student' at line 1
+mysql> truncket table student;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'truncket table student' at line 1
+mysql> truncket table student;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'truncket table student' at line 1
+mysql> truncate table student;
+Query OK, 0 rows affected (0.07 sec)
+
+mysql> select * from student;
+Empty set (0.02 sec)
+
+mysql> desc student;
++--------+-------------+------+-----+---------+-------+
+| Field  | Type        | Null | Key | Default | Extra |
++--------+-------------+------+-----+---------+-------+
+| studId | int         | NO   | PRI | NULL    |       |
+| Name   | varchar(40) | NO   |     | NULL    |       |
+| City   | varchar(45) | YES  |     | NULL    |       |
+| Marks  | int         | YES  |     | NULL    |       |
++--------+-------------+------+-----+---------+-------+
+4 rows in set (0.01 sec)
+
+mysql> alter table student add age int (after city);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'after city)' at line 1
+mysql> alter table student add age int after city;
+Query OK, 0 rows affected (0.09 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> select * from student;
+Empty set (0.01 sec)
+
+mysql> desc student;
++--------+-------------+------+-----+---------+-------+
+| Field  | Type        | Null | Key | Default | Extra |
++--------+-------------+------+-----+---------+-------+
+| studId | int         | NO   | PRI | NULL    |       |
+| Name   | varchar(40) | NO   |     | NULL    |       |
+| City   | varchar(45) | YES  |     | NULL    |       |
+| age    | int         | YES  |     | NULL    |       |
+| Marks  | int         | YES  |     | NULL    |       |
++--------+-------------+------+-----+---------+-------+
+5 rows in set (0.00 sec)
+
+mysql> alter table student modify studid int auto_increment;
+Query OK, 0 rows affected (0.09 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> desc student;
++--------+-------------+------+-----+---------+----------------+
+| Field  | Type        | Null | Key | Default | Extra          |
++--------+-------------+------+-----+---------+----------------+
+| studid | int         | NO   | PRI | NULL    | auto_increment |
+| Name   | varchar(40) | NO   |     | NULL    |                |
+| City   | varchar(45) | YES  |     | NULL    |                |
+| age    | int         | YES  |     | NULL    |                |
+| Marks  | int         | YES  |     | NULL    |                |
++--------+-------------+------+-----+---------+----------------+
+5 rows in set (0.01 sec)
+
+mysql> insert into student values('aarav','Pune' 20, 85)
+    -> insert into student values('aarav','Pune' 20, 85) ^C
+mysql> insert into student values('aarav','Pune' 20, 85) ;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '20, 85)' at line 1
+mysql> insert into student (name , city, age, marks)values('aarav','Pune' 20, 85) ;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '20, 85)' at line 1
+mysql> insert into student (name , city, age, marks) values('aarav','Pune' 20, 85) ;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '20, 85)' at line 1
+mysql> insert into student (name , city, age, marks) values('aarav','Pune', 20, 85) ;
+Query OK, 1 row affected (0.04 sec)
+
+mysql> select * from student;
++--------+-------+------+------+-------+
+| studid | Name  | City | age  | Marks |
++--------+-------+------+------+-------+
+|      1 | aarav | Pune |   20 |    85 |
++--------+-------+------+------+-------+
+1 row in set (0.01 sec)
+
+mysql> insert into student (name , city , age , marks) values('Priya','Mumbai',21,92),('Rahul','delhi',19,78),('Sneha','Banglore',20.78),('karan','Chenai' , 22,74);
+ERROR 1136 (21S01): Column count doesn't match value count at row 3
+mysql> insert into student (name , city , age , marks) values('Priya','Mumbai',21,92),('Rahul','delhi',19,78),('Sneha','Banglore',20,78),('karan','Chenai' , 22,74);
+Query OK, 4 rows affected (0.02 sec)
+Records: 4  Duplicates: 0  Warnings: 0
+
+mysql> insert into student (name,city,age , marks) values('aanaya', 'Hydrabad',19,95),('Rohan','Kolkata',21,81),('Isha','Pune',20,89),('Vikram','Jaipur',22,67),('Neha','Mumbai',19,91),('Adity','Delhi',21,76),('Kavya','Banglore',20,84),('Sidharth','Chennai',22,73),('Meera','Hydrabad',19,90),('Arjun','Kolkata',21,89),('Pooja','Pune',20,87),('Nikhil','Jaipur',20,65),('Riya','Mumbai',19,93),('Manish','Delhi',21,72),('Simran','Banglore',20,86),('Ram','Mumbai',27,87);
+Query OK, 16 rows affected (0.02 sec)
+Records: 16  Duplicates: 0  Warnings: 0
+
+mysql> select * from student;
++--------+----------+----------+------+-------+
+| studid | Name     | City     | age  | Marks |
++--------+----------+----------+------+-------+
+|      1 | aarav    | Pune     |   20 |    85 |
+|      2 | Priya    | Mumbai   |   21 |    92 |
+|      3 | Rahul    | delhi    |   19 |    78 |
+|      4 | Sneha    | Banglore |   20 |    78 |
+|      5 | karan    | Chenai   |   22 |    74 |
+|      6 | aanaya   | Hydrabad |   19 |    95 |
+|      7 | Rohan    | Kolkata  |   21 |    81 |
+|      8 | Isha     | Pune     |   20 |    89 |
+|      9 | Vikram   | Jaipur   |   22 |    67 |
+|     10 | Neha     | Mumbai   |   19 |    91 |
+|     11 | Adity    | Delhi    |   21 |    76 |
+|     12 | Kavya    | Banglore |   20 |    84 |
+|     13 | Sidharth | Chennai  |   22 |    73 |
+|     14 | Meera    | Hydrabad |   19 |    90 |
+|     15 | Arjun    | Kolkata  |   21 |    89 |
+|     16 | Pooja    | Pune     |   20 |    87 |
+|     17 | Nikhil   | Jaipur   |   20 |    65 |
+|     18 | Riya     | Mumbai   |   19 |    93 |
+|     19 | Manish   | Delhi    |   21 |    72 |
+|     20 | Simran   | Banglore |   20 |    86 |
+|     21 | Ram      | Mumbai   |   27 |    87 |
++--------+----------+----------+------+-------+
+21 rows in set (0.01 sec)
+
+mysql> select * from student where marks > (select marks from student where name ='rahul');
++--------+--------+----------+------+-------+
+| studid | Name   | City     | age  | Marks |
++--------+--------+----------+------+-------+
+|      1 | aarav  | Pune     |   20 |    85 |
+|      2 | Priya  | Mumbai   |   21 |    92 |
+|      6 | aanaya | Hydrabad |   19 |    95 |
+|      7 | Rohan  | Kolkata  |   21 |    81 |
+|      8 | Isha   | Pune     |   20 |    89 |
+|     10 | Neha   | Mumbai   |   19 |    91 |
+|     12 | Kavya  | Banglore |   20 |    84 |
+|     14 | Meera  | Hydrabad |   19 |    90 |
+|     15 | Arjun  | Kolkata  |   21 |    89 |
+|     16 | Pooja  | Pune     |   20 |    87 |
+|     18 | Riya   | Mumbai   |   19 |    93 |
+|     20 | Simran | Banglore |   20 |    86 |
+|     21 | Ram    | Mumbai   |   27 |    87 |
++--------+--------+----------+------+-------+
+13 rows in set (0.02 sec)
+
+mysql> select * from student where marks <(slect marks from student where name='priya');
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'marks from student where name='priya')' at line 1
+mysql> select * from student where marks <(select marks from student where name='priya');
++--------+----------+----------+------+-------+
+| studid | Name     | City     | age  | Marks |
++--------+----------+----------+------+-------+
+|      1 | aarav    | Pune     |   20 |    85 |
+|      3 | Rahul    | delhi    |   19 |    78 |
+|      4 | Sneha    | Banglore |   20 |    78 |
+|      5 | karan    | Chenai   |   22 |    74 |
+|      7 | Rohan    | Kolkata  |   21 |    81 |
+|      8 | Isha     | Pune     |   20 |    89 |
+|      9 | Vikram   | Jaipur   |   22 |    67 |
+|     10 | Neha     | Mumbai   |   19 |    91 |
+|     11 | Adity    | Delhi    |   21 |    76 |
+|     12 | Kavya    | Banglore |   20 |    84 |
+|     13 | Sidharth | Chennai  |   22 |    73 |
+|     14 | Meera    | Hydrabad |   19 |    90 |
+|     15 | Arjun    | Kolkata  |   21 |    89 |
+|     16 | Pooja    | Pune     |   20 |    87 |
+|     17 | Nikhil   | Jaipur   |   20 |    65 |
+|     19 | Manish   | Delhi    |   21 |    72 |
+|     20 | Simran   | Banglore |   20 |    86 |
+|     21 | Ram      | Mumbai   |   27 |    87 |
++--------+----------+----------+------+-------+
+18 rows in set (0.00 sec)
+
+mysql> select * from student where marks=(select marks from student where name='Rohit');
+Empty set (0.00 sec)
+
+mysql> select * from student where age > (select age from student where name ='amit');
+Empty set (0.00 sec)
+
+mysql> select * from student where age< (select age from student where name ='sneha');
++--------+--------+----------+------+-------+
+| studid | Name   | City     | age  | Marks |
++--------+--------+----------+------+-------+
+|      3 | Rahul  | delhi    |   19 |    78 |
+|      6 | aanaya | Hydrabad |   19 |    95 |
+|     10 | Neha   | Mumbai   |   19 |    91 |
+|     14 | Meera  | Hydrabad |   19 |    90 |
+|     18 | Riya   | Mumbai   |   19 |    93 |
++--------+--------+----------+------+-------+
+5 rows in set (0.00 sec)
+
+mysql> select * from Student where marks >
+    -> ()^C
+mysql> select * from Student where marks > (select avg(marks) from student );
++--------+--------+----------+------+-------+
+| studid | Name   | City     | age  | Marks |
++--------+--------+----------+------+-------+
+|      1 | aarav  | Pune     |   20 |    85 |
+|      2 | Priya  | Mumbai   |   21 |    92 |
+|      6 | aanaya | Hydrabad |   19 |    95 |
+|      8 | Isha   | Pune     |   20 |    89 |
+|     10 | Neha   | Mumbai   |   19 |    91 |
+|     12 | Kavya  | Banglore |   20 |    84 |
+|     14 | Meera  | Hydrabad |   19 |    90 |
+|     15 | Arjun  | Kolkata  |   21 |    89 |
+|     16 | Pooja  | Pune     |   20 |    87 |
+|     18 | Riya   | Mumbai   |   19 |    93 |
+|     20 | Simran | Banglore |   20 |    86 |
+|     21 | Ram    | Mumbai   |   27 |    87 |
++--------+--------+----------+------+-------+
+12 rows in set (0.02 sec)
+
+mysql> select * from Student where marks < (select avg(marks) from student );
++--------+----------+----------+------+-------+
+| studid | Name     | City     | age  | Marks |
++--------+----------+----------+------+-------+
+|      3 | Rahul    | delhi    |   19 |    78 |
+|      4 | Sneha    | Banglore |   20 |    78 |
+|      5 | karan    | Chenai   |   22 |    74 |
+|      7 | Rohan    | Kolkata  |   21 |    81 |
+|      9 | Vikram   | Jaipur   |   22 |    67 |
+|     11 | Adity    | Delhi    |   21 |    76 |
+|     13 | Sidharth | Chennai  |   22 |    73 |
+|     17 | Nikhil   | Jaipur   |   20 |    65 |
+|     19 | Manish   | Delhi    |   21 |    72 |
++--------+----------+----------+------+-------+
+9 rows in set (0.00 sec)
+
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'select * from student where marks = (select max(marks) from student)' at line 2
+mysql> select * from student where marks = (select max(marks) from student);
++--------+--------+----------+------+-------+
+| studid | Name   | City     | age  | Marks |
++--------+--------+----------+------+-------+
+|      6 | aanaya | Hydrabad |   19 |    95 |
++--------+--------+----------+------+-------+
+1 row in set (0.01 sec)
+
+mysql> select * from student where marks = (select min(marks) from student);
++--------+--------+--------+------+-------+
+| studid | Name   | City   | age  | Marks |
++--------+--------+--------+------+-------+
+|     17 | Nikhil | Jaipur |   20 |    65 |
++--------+--------+--------+------+-------+
+1 row in set (0.00 sec)
+
+mysql> select min(marks) from student;
++------------+
+| min(marks) |
++------------+
+|         65 |
++------------+
+1 row in set (0.00 sec)
+
+mysql> select * from student where min(marks);
+ERROR 1111 (HY000): Invalid use of group function
+mysql> select * from student where marks = (select max(marks) from student);
++--------+--------+----------+------+-------+
+| studid | Name   | City     | age  | Marks |
++--------+--------+----------+------+-------+
+|      6 | aanaya | Hydrabad |   19 |    95 |
++--------+--------+----------+------+-------+
+1 row in set (0.00 sec)
+
+mysql> select * from student where marks = (select min(marks) from student);
++--------+--------+--------+------+-------+
+| studid | Name   | City   | age  | Marks |
++--------+--------+--------+------+-------+
+|     17 | Nikhil | Jaipur |   20 |    65 |
++--------+--------+--------+------+-------+
+1 row in set (0.00 sec)
+
+mysql> select * from student where marks> (select max(marks) from student where city='mumbai');
++--------+--------+----------+------+-------+
+| studid | Name   | City     | age  | Marks |
++--------+--------+----------+------+-------+
+|      6 | aanaya | Hydrabad |   19 |    95 |
++--------+--------+----------+------+-------+
+1 row in set (0.01 sec)
+
+mysql> select * from student where marks<(select min(Marks) from student where city='pune');
++--------+----------+----------+------+-------+
+| studid | Name     | City     | age  | Marks |
++--------+----------+----------+------+-------+
+|      3 | Rahul    | delhi    |   19 |    78 |
+|      4 | Sneha    | Banglore |   20 |    78 |
+|      5 | karan    | Chenai   |   22 |    74 |
+|      7 | Rohan    | Kolkata  |   21 |    81 |
+|      9 | Vikram   | Jaipur   |   22 |    67 |
+|     11 | Adity    | Delhi    |   21 |    76 |
+|     12 | Kavya    | Banglore |   20 |    84 |
+|     13 | Sidharth | Chennai  |   22 |    73 |
+|     17 | Nikhil   | Jaipur   |   20 |    65 |
+|     19 | Manish   | Delhi    |   21 |    72 |
++--------+----------+----------+------+-------+
+10 rows in set (0.00 sec)
+
+mysql>
+mysql> ^C
+mysql> select * from student where course =(Select course from student where name ='rahul');
+ERROR 1054 (42S22): Unknown column 'course' in 'where clause'
+mysql> select * from student where age in (select age from student where city in('mumbai'));
++--------+--------+----------+------+-------+
+| studid | Name   | City     | age  | Marks |
++--------+--------+----------+------+-------+
+|      2 | Priya  | Mumbai   |   21 |    92 |
+|      3 | Rahul  | delhi    |   19 |    78 |
+|      6 | aanaya | Hydrabad |   19 |    95 |
+|      7 | Rohan  | Kolkata  |   21 |    81 |
+|     10 | Neha   | Mumbai   |   19 |    91 |
+|     11 | Adity  | Delhi    |   21 |    76 |
+|     14 | Meera  | Hydrabad |   19 |    90 |
+|     15 | Arjun  | Kolkata  |   21 |    89 |
+|     18 | Riya   | Mumbai   |   19 |    93 |
+|     19 | Manish | Delhi    |   21 |    72 |
+|     21 | Ram    | Mumbai   |   27 |    87 |
++--------+--------+----------+------+-------+
+11 rows in set (0.02 sec)
+
+mysql> select * from student where marks in (select marks from student where city in('pune'));
++--------+-------+---------+------+-------+
+| studid | Name  | City    | age  | Marks |
++--------+-------+---------+------+-------+
+|      1 | aarav | Pune    |   20 |    85 |
+|      8 | Isha  | Pune    |   20 |    89 |
+|     15 | Arjun | Kolkata |   21 |    89 |
+|     16 | Pooja | Pune    |   20 |    87 |
+|     21 | Ram   | Mumbai  |   27 |    87 |
++--------+-------+---------+------+-------+
+5 rows in set (0.00 sec)
